@@ -1,6 +1,7 @@
 /**
  * Created by duan on 16-6-25.
  */
+var fortune = require('./lib/fortune.js');
 var express = require('express');
 
 var app = express();
@@ -9,7 +10,6 @@ var handlebars = require('express3-handlebars')
     .create({
         defaultLayout: 'main'
     });
-
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -28,7 +28,9 @@ app.get('/', function (req, res) {
 });
 
 app.get('/about', function (req, res) {
+    var randomFortune =fortunes[Math.floor(Math.random() * fortunes.length)];
     res.render('about', {
+        fortune: fortune.getFortune()
         pageTestScript: '/qa/tests-about.js'
     });
 });
